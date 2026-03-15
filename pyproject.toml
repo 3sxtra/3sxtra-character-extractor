@@ -1,0 +1,11 @@
+[project]
+name = "sf3-character-editor"
+version = "0.1.0"
+description = "SF3:3rd Strike Character Editor"
+requires-python = ">=3.12"
+dependencies = [
+    "PyQt6>=6.5",
+    "numpy",
+    "pillow",
+    "opencv-python",
+]
