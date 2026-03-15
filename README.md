@@ -2,21 +2,26 @@
 
 A tool for viewing and extracting character sprites from *Street Fighter III: 3rd Strike* (PS2 version).
 
+![Main Window](docs/images/mainwindow.png)
+
 ## Features
 
-*   **Character Extractor GUI**: Visual editor for viewing character sprites, animations, and palettes.
-*   **Asset Extraction**: Extract character sprites with proper palettes applied.
-*   **Direct AFS Archive Support**: Read directly from `SF33RD.AFS` without requiring extraction.
-*   **Palette Handling**: Automatically handle and apply the correct color palettes for sprites.
-*   **Frame Recomposition**: Reconstruct animation frames from raw sprite data.
+- 🎨 **Palette Editor** — View and switch between costume colors and effect palettes in real time
+- 🖼️ **Sprite Viewer** — Browse individual sprites with correct palettes applied
+- 🎞️ **Animation Playback** — Play back animation sequences with looping and speed control
+- 📋 **Organised View** — See all sprites for a sequence laid out in a grid
+- 📦 **Direct AFS Support** — Read directly from `SF33RD.AFS` — no manual extraction needed
+- 💾 **Export** — Save sprites, frames, and GIFs
 
-## System Requirements
+### Animation Playback
 
-*   **Operating System**: Windows, macOS, or Linux
-*   **Python Version**: 3.10+ (3.12 recommended)
-*   **Package Manager**: [uv](https://docs.astral.sh/uv/) (recommended) or pip
+![Animation Playback](docs/images/animationplayback.gif)
 
-## Installation
+### Organised Sprite View
+
+![Organised View](docs/images/organised.png)
+
+## Quick Start
 
 ### Using uv (Recommended)
 
@@ -34,9 +39,7 @@ A tool for viewing and extracting character sprites from *Street Fighter III: 3r
     curl -LsSf https://astral.sh/uv/install.sh | sh
     ```
 
-2.  Extract the zip file to a folder of your choice.
-
-3.  Run the Character Extractor - dependencies are installed automatically:
+2.  Run the Character Extractor — dependencies are installed automatically:
 
     **Windows**:
     ```bash
@@ -49,113 +52,85 @@ A tool for viewing and extracting character sprites from *Street Fighter III: 3r
     ./run.sh
     ```
 
-### Using pip (Alternative)
+### Using pip
 
-1.  Extract the zip file to a folder of your choice.
-
-2.  Install dependencies:
+1.  Install dependencies:
 
     ```bash
     pip install .
     ```
 
-3.  Run the tool:
+2.  Run the tool:
 
     ```bash
     python run_character_editor.py
     ```
 
-## Usage
+## System Requirements
 
-### Character Extractor (GUI)
+*   **OS**: Windows, macOS, or Linux
+*   **Python**: 3.10+ (3.12 recommended)
+*   **Package Manager**: [uv](https://docs.astral.sh/uv/) (recommended) or pip
 
-The easiest way to explore characters is through the graphical editor:
-
-```bash
-uv run run_character_editor.py
-```
-
-Or use the launcher script:
-
-**Windows**: `run.bat`
-
-**macOS/Linux**: `./run.sh`
-
-### AFS Data Source
+## AFS Data Source
 
 The tool automatically searches for game assets in this priority order:
 
-**Windows**:
-1. `%APPDATA%\CrowdedStreet\3SX\resources\SF33RD.AFS` (archive)
-2. `{cwd}\SF33RD.AFS` (archive)
-3. `%APPDATA%\CrowdedStreet\3SX\resources\afsextracted\` (folder)
-4. `{cwd}\afsextracted\` (folder)
+<details>
+<summary><b>Windows</b></summary>
 
-**macOS**:
-1. `~/Library/Application Support/CrowdedStreet/3SX/resources/SF33RD.AFS` (archive)
-2. `{cwd}/SF33RD.AFS` (archive)
-3. `~/Library/Application Support/CrowdedStreet/3SX/resources/afsextracted/` (folder)
-4. `{cwd}/afsextracted/` (folder)
+1. `%APPDATA%\CrowdedStreet\3SX\resources\SF33RD.AFS`
+2. `{cwd}\SF33RD.AFS`
+3. `%APPDATA%\CrowdedStreet\3SX\resources\afsextracted\`
+4. `{cwd}\afsextracted\`
 
-**Linux**:
-1. `~/.local/share/CrowdedStreet/3SX/resources/SF33RD.AFS` (archive)
-2. `{cwd}/SF33RD.AFS` (archive)
-3. `~/.local/share/CrowdedStreet/3SX/resources/afsextracted/` (folder)
-4. `{cwd}/afsextracted/` (folder)
+</details>
+
+<details>
+<summary><b>macOS</b></summary>
+
+1. `~/Library/Application Support/CrowdedStreet/3SX/resources/SF33RD.AFS`
+2. `{cwd}/SF33RD.AFS`
+3. `~/Library/Application Support/CrowdedStreet/3SX/resources/afsextracted/`
+4. `{cwd}/afsextracted/`
+
+</details>
+
+<details>
+<summary><b>Linux</b></summary>
+
+1. `~/.local/share/CrowdedStreet/3SX/resources/SF33RD.AFS`
+2. `{cwd}/SF33RD.AFS`
+3. `~/.local/share/CrowdedStreet/3SX/resources/afsextracted/`
+4. `{cwd}/afsextracted/`
+
+</details>
 
 Place your `SF33RD.AFS` file or extracted files in one of these locations.
 
 ## Project Structure
 
-*   `sf33rd/`: The core Python package for the project.
-    *   `core/`: Core data models, libraries, and utilities.
-    *   `parsers/`: Parsers for the various file formats used in the game.
-    *   `lib/`: Palette and animation libraries.
-*   `SF3FSPLORERGUI/`: The GUI application package.
-*   `run_character_editor.py`: Launcher for the Character Extractor GUI.
-*   `output/`: The default directory where extracted assets will be saved.
+```
+sf33rd/              Core Python package
+  core/              Data models, AFS archive reader, utilities
+  parsers/           Texture unpacker, animation parser
+  lib/               Palette, swizzle, image, layout libraries
+SF3FSPLORERGUI/      GUI application (PyQt6)
+run_character_editor.py   Launcher
+```
 
 ## Troubleshooting
 
-*   **Missing Files**: Ensure your `SF33RD.AFS` file is in one of the data source locations listed above.
-*   **Crashes or Errors**: Check that you have read and write permissions for the `output` directory.
-*   **Dependencies**: If using pip, ensure all dependencies are installed with `pip install .`.
-*   **uv Issues**: Try `uv sync` to refresh dependencies.
+| Problem | Solution |
+|---------|----------|
+| **No assets found** | Place `SF33RD.AFS` in one of the data source locations above |
+| **Permission errors** | Ensure read/write access to the output directory |
+| **Missing dependencies** | Run `uv sync` or `pip install .` |
+| **Blank sprites** | Check that the correct palette source is selected |
 
 ## Disclaimer
 
-**Use at Your Own Risk**
-
-This tool is provided "as is" without any warranties or guarantees. The authors and contributors are not responsible for:
-
-- Any damage to your system, files, or data
-- Issues with your Python environment or virtual environments
-- Problems caused by incorrect installation or usage
-- Any other consequences resulting from the use of this tool
-
-**User Responsibility**
-
-You are solely responsible for:
-- Ensuring your Python environment is properly configured
-- Managing your virtual environments (if used)
-- Installing dependencies correctly
-- Following the installation and usage instructions
-- Any modifications you make to the tool or its dependencies
-
-**No Liability**
-
-By using this tool, you acknowledge and agree that:
-- You understand the risks involved
-- You will not hold the authors or contributors liable for any damages
-- You will use the tool responsibly and legally
-- You are responsible for any issues that may arise from its use
-
-**Recommendations**
-
-- Always backup important data before using the tool
-- Consider using a virtual environment to isolate dependencies
-- Test the tool with non-critical files first
-- Report any issues or bugs you encounter
+This tool is provided "as is" without any warranties or guarantees. You are solely responsible for ensuring your environment is properly configured and for any consequences resulting from the use of this tool. Always backup important data before use.
 
 ## License
 
